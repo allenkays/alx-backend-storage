@@ -9,4 +9,4 @@ CREATE TABLE IF NOT EXISTS users (
   name VARCHAR(255)
   PRIMARY KEY (id),
   UNIQUE (email)
-  );
+  )ENGINE=InnoDB;
