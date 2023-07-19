@@ -5,9 +5,10 @@ import time
 # Create a Redis client
 redis_client = redis.Redis()
 
+
 def cache_decorator(fn):
     """
-    Decorator to cache the result of a function with an expiration time of 10 seconds.
+    Cache the result of a function with an expiration time of 10 seconds.
     """
 
     def wrapper(url):
@@ -26,6 +27,7 @@ def cache_decorator(fn):
 
     return wrapper
 
+
 @cache_decorator
 def get_page(url: str) -> str:
     """
@@ -38,9 +40,14 @@ def get_page(url: str) -> str:
         The HTML content of the URL.
     """
     response = requests.get(url)
+
     return response.text
 
-# Example usage
-# url = "http://slowwly.robertomurray.co.uk/delay/5000/url/https://www.example.com"
-# content = get_page(url)
-# print(content)
+
+"""
+Example usage
+url =
+"http://slowwly.robertomurray.co.uk/delay/5000/url/https://www.example.com"
+content = get_page(url)
+print(content)
+"""
