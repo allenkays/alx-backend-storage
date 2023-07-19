@@ -7,7 +7,7 @@ some data to it
 
 import redis
 import uuid
-from typing import Union
+from typing import Callable, Optional, Union
 
 
 class Cache:
@@ -37,3 +37,48 @@ class Cache:
         self._redis.set(key, data)
 
         return key
+
+    def get(
+            self, key: str,fn: Optional[Callable[[bytes], Union[str, int]]]
+            = None) -> Union[bytes, str, int, None]:
+        """
+        Retrieve the data from Redis using the provided key.
+
+        Args:
+            key: The key used to retrieve the data from Redis.
+            fn: optional callable that converts the data to the desired format.
+
+        Returns:
+            The retrieved data, converted  as per callable if specified.
+            None if key does not exist.
+        """
+        data = self._redis.get(key)
+        if data is None:
+            return None
+        if fn is not None:
+            return fn(data)
+        return data
+
+    def get_str(self, key: str) -> Optional[str]:
+        """
+        Retrieve data from Redis with given key and convert it to a string.
+
+        Args:
+            key: The key used to retrieve the data from Redis.
+
+        Returns:
+            The retrieved data as a string, or None if the key does not exist.
+        """
+        return self.get(key, fn=lambda d: d.decode("utf-8"))
+
+    def get_int(self, key: str) -> Optional[int]:
+        """
+        Retrieve data from Redis with given key and convert it to an integer.
+
+        Args:
+            key: The key used to retrieve the data from Redis.
+
+        Returns:
+            Retrieved data as an integer, or None if key does not exist.
+        """
+        return self.get(key, fn=int)
