@@ -14,7 +14,7 @@ BEGIN
   END IF;
 
   /* Insert the correction */
-  INSERT INTO correction (user_id, project_id, score) VALUES (user_id, project_id, score);
+  INSERT INTO corrections (user_id, project_id, score) VALUES (user_id, project_id, score);
 
 END;
 $$
