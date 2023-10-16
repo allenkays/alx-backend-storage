@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """
+This script returns list of school based on provided topic
 """
 import pymongo
 
