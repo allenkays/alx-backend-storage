@@ -1,5 +1,5 @@
 //Script to insert a new attribut to a document in the collection school
 db.school.update(
-  {"name: "Holberton school"}
+  {"name: "Holberton school"},
   { $set: {"address": "972 Mission street"}}
 )
